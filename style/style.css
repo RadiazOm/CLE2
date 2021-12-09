@@ -1,0 +1,149 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+}
+
+.header {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left {
+    display: flex;
+}
+
+.logo img{
+    height: 100%;
+}
+
+.right img {
+    height: 100%;
+}
+
+
+
+.navigation {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navigation div {
+    padding: 20px;
+    margin: 10px;
+}
+
+.navigation a {
+    font-size: 34px;
+    text-decoration: none;
+    text-align: center;
+}
+
+
+/*
+flexbox froggy
+ */
+
+.profilePic {
+    height: 98px;
+}
+
+.event {
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    min-width: 250px;
+}
+
+.Event {
+    font-size: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.top p {
+    margin: 0;
+}
+.middle {
+    max-height: 200px;
+    overflow-x: auto;
+    border: 1px solid #D1D1D1;
+    word-break: break-word;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 16px;
+}
+
+.bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inschrijven {
+    max-height: 100px;
+}
+
+.datum {
+    padding-inline: 10px;
+    word-break: break-word;
+}
+
+.middleSection {
+    display: flex;
+    justify-content: center;
+}
+
+.eventChamber {
+    max-width: 700px;
+    background-color: #E6E6E6;
+}
+
+.inschrijven a {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    padding-inline: 10px;
+    border: 2px solid #414BB2;
+    background-color: #414BB2;
+    border-radius: 4px;
+    transition: background-color .3s;
+    color: white;
+    padding: 20px;
+}
+
+.inschrijven   p {
+    margin: 0px!important;
+}
+
+.inschrijven a:hover {
+    background-color: white;
+    color: #414BB2;
+}
+
+.home {
+    color: black;
+    border-bottom: 2px solid #414BB2;
+}
+.events {
+    color: black;
+    border-bottom: 2px solid #414BB2;
+}
+
+.overOns {
+    color: black;
+    border-bottom: 2px solid #414BB2;
+}
