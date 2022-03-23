@@ -1,14 +1,12 @@
 <?php
 session_start();
 
-// check if user has logged in
-if (!isset($_SESSION['loggedInUser'])) {
+// check if user has logged in and is admin
+if (!isset($_SESSION['loggedInUser']) || !$_SESSION['loggedInUser']['admin']) {
     header("Location: login.php");
     exit;
 }
 // store user id in variable so that we can use it in a query
-$userId = $_SESSION['loggedInUser']['id'];
-
 require_once 'databaseQuery.php';
 // build query for showing events
 $query = "SELECT * FROM event
@@ -27,27 +25,9 @@ while($row = mysqli_fetch_assoc($result)) {
     $event[] = $row;
 }
 
-// build query for checking if you have signed in
-$query = "SELECT * FROM user_events
-            WHERE '$userId' = user_id";
-/**
- * @var $db
- */
-
-// execute query on database
-$result = mysqli_query($db, $query)
-or die('Error '.mysqli_error($db).' with query '.$query);
-
-$userEvent = [];
-// convert table into array
-while($row = mysqli_fetch_assoc($result)) {
-    $userEvent[] = $row;
-}
-mysqli_close($db);
-
-$signout = false;
 
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -75,10 +55,10 @@ $signout = false;
 
         <div class="navigation">
             <div><a href="index.php">Home</a></div>
-            <div><a class="underline" href="events.php">Events</a></div>
+            <div><a href="events.php">Events</a></div>
             <div><a href="overOns.php">About us</a></div>
             <?php if ($_SESSION['loggedInUser']['admin']) { ?>
-                <div><a href="configure.php">Configure</a></div>
+                <div><a class="underline" href="configure.php">Configure</a></div>
                 <div><a href="create.php">Create</a></div>
             <?php }?>
         </div>
@@ -89,56 +69,48 @@ $signout = false;
         <div><a href="logout.php">Logout</a></div>
         <img class="profilePic" src="Images/profile%20placeholder.jpg" alt="profiel">
     </div>
-
-
 </nav>
 
 <div id="mobile-menu" class="show">
     <div><a href="index.php">Home</a></div>
-    <div><a class="underline" href="events.php">Events</a></div>
+    <div><a href="events.php">Events</a></div>
     <div><a href="overOns.php">About us</a></div>
     <?php if ($_SESSION['loggedInUser']['admin']) { ?>
-        <div><a href="configure.php">Configure</a></div>
+        <div><a class="underline" href="configure.php">Configure</a></div>
         <div><a href="create.php">Create</a></div>
     <?php }?>
 </div>
-
-
-<?php foreach ($event as $index => $events) {?>
-                <?php foreach ($userEvent as $index2 => $userEvents) {
-                    if ($userEvents['event_id'] == $events['id']) {
-                        $signout = true;
-                    }
-                }
-                if ($signout == false) { ?>
-                <div class="Event">
-                    <div class="event">
-                        <div class="top">
-                            <div class="name">
-                                <p><?= $events['naam'] ?></p>
-                            </div>
-                            <div class="datum">
-                                <p><?= $events['datum'] ?></p>
-                            </div>
+<div class="middleSection">
+    <div class="eventChamber">
+        <?php foreach ($event as $index => $events) {?>
+            <div class="Event">
+                <div class="event">
+                    <div class="top">
+                        <div class="name">
+                            <p><?= $events['naam'] ?></p>
                         </div>
-
-                        <div class="middle">
-                            <p><?= $events['descriptie'] ?></p>
+                        <div class="datum">
+                            <p><?= $events['datum'] ?></p>
                         </div>
-
-                        <div class="bottom">
-                            <div>
-                                <p><?= $events['deelnemers'] ?>/<?= $events['max_deelnemers'] ?></p>
-                            </div>
-                    <div class="inschrijven">
-                        <p><a href="event.php?id=<?= $events['id']?>">Sign out</a></p>
                     </div>
 
-                <?php } else { $signout = false ?>
-                <?php } ?>
+                    <div class="middle">
+                        <p><?= $events['descriptie'] ?></p>
+                    </div>
+
+                    <div class="bottom">
+                        <div>
+                            <p><?= $events['deelnemers'] ?>/<?= $events['max_deelnemers'] ?></p>
+                        </div>
+
+                            <div class="inschrijven">
+                                <p><a href="edit.php?id=<?= $events['id']?>">Edit</a></p>
+                            </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        <?php } ?>
     </div>
-<?php } ?>
+</div>
 </body>
 </html>
