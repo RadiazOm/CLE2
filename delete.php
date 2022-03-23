@@ -56,7 +56,6 @@ mysqli_close($db);
                 <div><a href="overOns.php">About us</a></div>
                 <div><a href="configure.php">Configure</a></div>
                 <div><a class="underline" href="create.php">Create</a></div>
-                <?php }?>
             </div>
         </div>
 
